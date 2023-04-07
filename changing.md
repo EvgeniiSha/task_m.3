@@ -3,10 +3,17 @@
 ---
 ---
 
+<br/>
+
 ## **3. Запись изменений в репозиторий** ##
 
-**Важно!**
-Каждый файл в вашем рабочем каталоге может находиться в одном из двух состояний: под **версионным контролем (отслеживаемые)** и **нет (неотслеживаемые)**.
+---
+
+<br/>
+<br/>
+
+>**Важно!**<br/>
+Каждый файл в вашем рабочем каталоге может находиться в одном из двух состояний: **под версионным контролем (отслеживаемые)** и **нет (неотслеживаемые)**.
 
 **Отслеживаемые файлы** — это те файлы, которые были в последнем снимке состояния проекта; они могут быть неизменёнными, изменёнными или подготовленными к коммиту.
 
@@ -14,115 +21,143 @@
 
 Как только вы отредактируете файлы, Git будет рассматривать их как изменённые, так как вы изменили их с момента последнего коммита. Вы индексируете эти изменения, затем фиксируете все проиндексированные изменения, а затем цикл повторяется.
 
-**1. Определение состояния файлов.**
+<br/>
+
+### **1. Определение состояния файлов.**
+
+<br/>
 
 Основной инструмент, используемый для определения, какие файлы в каком состоянии находятся — это команда **git status**. Если вы выполните эту команду сразу после клонирования, вы увидите что-то вроде этого:
 
-$ git status
-On branch master
-Your branch is up-to-date with 'origin/master'.
-nothing to commit, working tree clean
+    $ git status
+    On branch master
+    Your branch is up-to-date with 'origin/master'.
+    nothing to commit, working tree clean
 
 Это означает, что у вас чистый рабочий каталог, другими словами — в нём нет отслеживаемых изменённых файлов. Git также не обнаружил неотслеживаемых файлов, в противном случае они бы были перечислены здесь. Наконец, команда сообщает вам на какой ветке вы находитесь и сообщает вам, что она не расходится с веткой на сервере. 
 
-Предположим, вы добавили в свой проект новый файл, простой файл README. Если этого файла раньше не было, и вы выполните git status, вы увидите свой неотслеживаемый файл вот так:
+Предположим, вы добавили в свой проект новый файл, простой файл *README*. Если этого файла раньше не было, и вы выполните **git status**, вы увидите свой неотслеживаемый файл вот так:
 
-$ echo 'My Project' > README
-$ git status
-On branch master
-Your branch is up-to-date with 'origin/master'.
-Untracked files:
-  (use "git add <file>..." to include in what will be committed)
+    $ echo 'My Project' > README
+    $ git status
+    On branch master
+    Your branch is up-to-date with 'origin/master'.
+    Untracked files:
+      (use "git add <file>..." to include in what will be committed)
 
-    README
+        README
 
-nothing added to commit but untracked files present (use "git add" to track)
+    nothing added to commit but untracked files present (use "git add" to track)
 
-Понять, что новый файл README неотслеживаемый можно по тому, что он находится в секции «Untracked files» в выводе команды status. Статус Untracked означает, что Git видит файл, которого не было в предыдущем снимке состояния (коммите); Git не станет добавлять его в ваши коммиты, пока вы его явно об этом не попросите. 
+Понять, что новый файл *README* неотслеживаемый можно по тому, что он находится в секции «Untracked files» в выводе команды status. Статус Untracked означает, что Git видит файл, которого не было в предыдущем снимке состояния (коммите); Git не станет добавлять его в ваши коммиты, пока вы его явно об этом не попросите. 
 
-**2. Отслеживание новых файлов.**
+<br/>
 
-Для того чтобы начать отслеживать (добавить под версионный контроль) новый файл, используется команда **git add**. Чтобы начать отслеживание файла README, вы можете выполнить следующее:
+### **2. Отслеживание новых файлов.**
 
-$ git add README
+<br/>
 
-Если вы снова выполните команду status, то увидите, что файл README теперь отслеживаемый и добавлен в индекс:
+Для того чтобы начать отслеживать (добавить под версионный контроль) новый файл, используется команда **git add**. Чтобы начать отслеживание файла *README*, вы можете выполнить следующее:
 
-$ git status
-On branch master
-Your branch is up-to-date with 'origin/master'.
-Changes to be committed:
-  (use "git restore --staged <file>..." to unstage)
+    $ git add README
 
-    new file:   README
+Если вы снова выполните команду **git status**, то увидите, что файл *README* теперь отслеживаемый и добавлен в индекс:
 
-Вы можете видеть, что файл проиндексирован, так как он находится в секции «Changes to be committed». Если вы выполните коммит в этот момент, то версия файла, существовавшая на момент выполнения вами команды git add, будет добавлена в историю снимков состояния. Как вы помните, когда вы ранее выполнили git init, затем вы выполнили git add (файлы) — это было сделано для того, чтобы добавить файлы в вашем каталоге под версионный контроль. Команда **git add** принимает параметром путь к файлу или каталогу, если это каталог, команда рекурсивно добавляет все файлы из указанного каталога в индекс.
+    $ git status
+    On branch master
+    Your branch is up-to-date with 'origin/master'.
+    Changes to be committed:
+      (use "git restore --staged <file>..." to unstage)
 
-**3. Индексация изменённых файлов.**
+        new file:   README
 
-Если вы измените отслеживаемый файл CONTRIBUTING.md и после этого снова выполните команду **git status**, то результат будет примерно следующим:
+Вы можете видеть, что файл проиндексирован, так как он находится в секции «Changes to be committed». Если вы выполните коммит в этот момент, то версия файла, существовавшая на момент выполнения вами команды **git add**, будет добавлена в историю снимков состояния.
 
-$ git status
-On branch master
-Your branch is up-to-date with 'origin/master'.
-Changes to be committed:
-  (use "git reset HEAD <file>..." to unstage)
+Как вы помните, когда вы ранее выполнили **git init**, затем вы выполнили **git add** (файлы) — это было сделано для того, чтобы добавить файлы в вашем каталоге под версионный контроль. Команда **git add** принимает параметром путь к файлу или каталогу, если это каталог, команда рекурсивно добавляет все файлы из указанного каталога в индекс.
 
-    new file:   README
+<br/>
 
-Changes not staged for commit:
-  (use "git add <file>..." to update what will be committed)
-  (use "git checkout -- <file>..." to discard changes in working directory)
+### **3. Индексация изменённых файлов.**
 
-    modified:   CONTRIBUTING.md
+<br/>
 
-Файл CONTRIBUTING.md находится в секции «Changes not staged for commit» — это означает, что отслеживаемый файл был изменён в рабочем каталоге, но пока не проиндексирован. Чтобы проиндексировать его, необходимо выполнить команду **git add**. Это многофункциональная команда, она используется для добавления под версионный контроль новых файлов, для индексации изменений, а также для других целей, например для указания файлов с исправленным конфликтом слияния. 
+Если вы измените отслеживаемый файл *CONTRIBUTING.md* и после этого снова выполните команду **git status**, то результат будет примерно следующим:
 
-Вам может быть понятнее, если вы будете думать об этом как «добавить этот контент в следующий коммит», а не как «добавить этот файл в проект». Выполним **git add**, чтобы проиндексировать CONTRIBUTING.md, а затем снова выполним **git status**:
+    $ git status
+    On branch master
+    Your branch is up-to-date with 'origin/master'.
+    Changes to be committed:
+      (use "git reset HEAD <file>..." to unstage)
 
-$ git add CONTRIBUTING.md
-$ git status
-On branch master
-Your branch is up-to-date with 'origin/master'.
-Changes to be committed:
-  (use "git reset HEAD <file>..." to unstage)
+        new file:   README
 
-    new file:   README
-    modified:   CONTRIBUTING.md
+    Changes not staged for commit:
+      (use "git add <file>..." to update what will be committed)
+      (use "git checkout -- <file>..." to discard changes in working directory)
 
-Теперь оба файла проиндексированы и войдут в следующий коммит. В этот момент вы, предположим, вспомнили одно небольшое изменение, которое вы хотите сделать в CONTRIBUTING.md до коммита. Вы открываете файл, вносите и сохраняете необходимые изменения и вроде бы готовы к коммиту. Но давайте-ка ещё раз выполним **git status**:
+        modified:   CONTRIBUTING.md
 
-$ vim CONTRIBUTING.md
-$ git status
-On branch master
-Your branch is up-to-date with 'origin/master'.
-Changes to be committed:
-  (use "git reset HEAD <file>..." to unstage)
+Файл *CONTRIBUTING.md* находится в секции «Changes not staged for commit» — это означает, что отслеживаемый файл был изменён в рабочем каталоге, но пока не проиндексирован. Чтобы проиндексировать его, необходимо выполнить команду **git add**. Это многофункциональная команда, она используется для добавления под версионный контроль новых файлов, для индексации изменений, а также для других целей, например для указания файлов с исправленным конфликтом слияния. 
 
-    new file:   README
-    modified:   CONTRIBUTING.md
+<br/>
 
-Changes not staged for commit:
-  (use "git add <file>..." to update what will be committed)
-  (use "git checkout -- <file>..." to discard changes in working directory)
+>Вам может быть понятнее, если вы будете думать об этом как «добавить этот контент в следующий коммит», а не как «добавить этот файл в проект».
 
-    modified:   CONTRIBUTING.md
+<br/>
 
-Что за чёрт? Теперь CONTRIBUTING.md отображается как проиндексированный и непроиндексированный одновременно. Как такое возможно? Такая ситуация наглядно демонстрирует, что Git индексирует файл в точности в том состоянии, в котором он находился, когда вы выполнили команду **git add**. Если вы выполните коммит сейчас, то файл CONTRIBUTING.md попадёт в коммит в том состоянии, в котором он находился, когда вы последний раз выполняли команду **git add**, а не в том, в котором он находится в вашем рабочем каталоге в момент выполнения **git commit**. Если вы изменили файл после выполнения **git add**, вам придётся снова выполнить **git add**, чтобы проиндексировать последнюю версию файла:
+Выполним **git add**, чтобы проиндексировать *CONTRIBUTING.md*, а затем снова выполним **git status**:
 
-$ git add CONTRIBUTING.md
-$ git status
-On branch master
-Your branch is up-to-date with 'origin/master'.
-Changes to be committed:
-  (use "git reset HEAD <file>..." to unstage)
+    $ git add CONTRIBUTING.md
+    $ git status
+    On branch master
+    Your branch is up-to-date with 'origin/master'.
+    Changes to be committed:
+      (use "git reset HEAD <file>..." to unstage)
 
-    new file:   README
-    modified:   CONTRIBUTING.md
+        new file:   README
+        modified:   CONTRIBUTING.md
 
-В следующей главе мы поговрим об [игнорировании файлов](./Ignoring.md).
+Теперь оба файла проиндексированы и войдут в следующий коммит. В этот момент вы, предположим, вспомнили одно небольшое изменение, которое вы хотите сделать в *CONTRIBUTING.md* до коммита. Вы открываете файл, вносите и сохраняете необходимые изменения и вроде бы готовы к коммиту. Но давайте-ка ещё раз выполним **git status**:
+
+    $ vim CONTRIBUTING.md
+    $ git status
+    On branch master
+    Your branch is up-to-date with 'origin/master'.
+    Changes to be committed:
+      (use "git reset HEAD <file>..." to unstage)
+
+        new file:   README
+        modified:   CONTRIBUTING.md
+
+    Changes not staged for commit:
+      (use "git add <file>..." to update what will be committed)
+      (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   CONTRIBUTING.md
+
+**Что за чёрт?** Теперь *CONTRIBUTING.md* отображается как проиндексированный и непроиндексированный одновременно. Как такое возможно? Такая ситуация наглядно демонстрирует, что Git индексирует файл в точности в том состоянии, в котором он находился, когда вы выполнили команду **git add**. Если вы выполните коммит сейчас, то файл *CONTRIBUTING.md* попадёт в коммит в том состоянии, в котором он находился, когда вы последний раз выполняли команду **git add**, а не в том, в котором он находится в вашем рабочем каталоге в момент выполнения **git commit**. Если вы изменили файл после выполнения **git add**, вам придётся снова выполнить **git add**, чтобы проиндексировать последнюю версию файла:
+
+    $ git add CONTRIBUTING.md
+    $ git status
+    On branch master
+    Your branch is up-to-date with 'origin/master'.
+    Changes to be committed:
+      (use "git reset HEAD <file>..." to unstage)
+
+        new file:   README
+        modified:   CONTRIBUTING.md
+
+<br/>
+<br/>
+<br/>
 
 ---
 ---
+
+<br/>
+
+В следующей главе мы поговорим об [игнорировании файлов](./Ignoring.md).
+
+=======
 
 [< К предыдущему разделу](./%D1%81reation.md)
